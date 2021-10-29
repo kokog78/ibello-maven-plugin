@@ -17,12 +17,11 @@ public class TestMojo extends IbelloMojo{
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-//        getLog().info( "Hello, world." );
         List<Dependency> dependencies = project.getDependencies();
 //        long numDependencies = dependencies.stream()
 //                .filter(d -> (scope == null || scope.isEmpty()) || scope.equals(d.getScope()))
 //                .count();
 //        getLog().info("Number of dependencies: " + numDependencies);
-        dependencies.stream().forEach(dependency -> getLog().info(dependency.getArtifactId()));
+        dependencies.stream().forEach(dependency -> getLog().info("Dependency: " + dependency.getArtifactId()));
     }
 }

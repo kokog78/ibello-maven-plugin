@@ -10,9 +10,11 @@ import java.util.concurrent.Executors;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+@Mojo(name = "ibello")
 public abstract class IbelloMojo extends AbstractMojo {
 	
 	private final static String PID_FILE = "./ibello/ibello.pid";
