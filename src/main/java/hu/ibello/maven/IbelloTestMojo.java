@@ -7,35 +7,20 @@ import java.util.List;
 
 public abstract class IbelloTestMojo extends IbelloMojo{
 
-    @Parameter( property = "tags")
+    @Parameter(property = "tags")
     private String[] tags;
 
-    @Parameter( property = "headless")
+    @Parameter(property = "headless")
     private boolean headless;
 
-    @Parameter( property = "browser")
+    @Parameter(property = "browser")
     private String browser;
 
-    private int[] size;
+    @Parameter(property = "size")
+    private Integer[] size;
 
-    @Parameter( property = "repeat", defaultValue = "0")
+    @Parameter(property = "repeat", defaultValue = "0")
     private int repeat;
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
-    }
-
-    public int[] getSize() {
-        return size;
-    }
-
-    public void setSize(int x, int y) {
-        this.size = new int[] {x, y};
-    }
 
     @Override
     protected List<String> getCalculatedCommand(String command) {
@@ -49,7 +34,7 @@ public abstract class IbelloTestMojo extends IbelloMojo{
             }
         }
         appendArgument(result, "--browser", browser);
-        if (size != null) {
+        if (size != null && size.length > 1) {
             String value = String.format("%dx%d", size[0], size[1]);
             appendArgument(result, "--size", value);
         }
