@@ -7,30 +7,19 @@ import java.util.List;
 
 public abstract class IbelloTestMojo extends IbelloMojo{
 
+    @Parameter( property = "tags")
     private String[] tags;
 
     @Parameter( property = "headless")
     private boolean headless;
 
+    @Parameter( property = "browser")
     private String browser;
+
     private int[] size;
-    private int repeat = 0;
 
-    public String[] getTags() {
-        return tags;
-    }
-
-    public void setTags(String ... tags) {
-        this.tags = tags;
-    }
-
-    public boolean isHeadless() {
-        return headless;
-    }
-
-    public void setHeadless(boolean headless) {
-        this.headless = headless;
-    }
+    @Parameter( property = "repeat", defaultValue = "0")
+    private int repeat;
 
     public String getBrowser() {
         return browser;
@@ -46,14 +35,6 @@ public abstract class IbelloTestMojo extends IbelloMojo{
 
     public void setSize(int x, int y) {
         this.size = new int[] {x, y};
-    }
-
-    public int getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(int repeat) {
-        this.repeat = repeat;
     }
 
     @Override
