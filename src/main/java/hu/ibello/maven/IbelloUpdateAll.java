@@ -6,7 +6,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 import java.util.List;
 
-@Mojo(name = "ibelloUpdateAll")
+@Mojo(name = "updateAll")
 public class IbelloUpdateAll extends IbelloMojo{
 
     @Override
@@ -15,7 +15,7 @@ public class IbelloUpdateAll extends IbelloMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         result.add("--remove");
         return result;

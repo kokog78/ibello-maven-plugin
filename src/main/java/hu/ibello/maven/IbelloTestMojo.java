@@ -1,5 +1,6 @@
 package hu.ibello.maven;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
@@ -17,14 +18,13 @@ public abstract class IbelloTestMojo extends IbelloMojo{
     private String browser;
 
     @Parameter(property = "size")
-    // KÉRDÉS: csak akkor működjön ha mind a két értéket (width, height) megadtuk?
     private Integer[] size;
 
     @Parameter(property = "repeat", defaultValue = "0")
     private int repeat;
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException {
         List<String> result = super.getCalculatedCommand(command);
         if (headless) {
             result.add("--headless");
@@ -35,9 +35,13 @@ public abstract class IbelloTestMojo extends IbelloMojo{
             }
         }
         appendArgument(result, "--browser", browser);
-        if (size != null && size.length > 1) {
-            String value = String.format("%dx%d", size[0], size[1]);
-            appendArgument(result, "--size", value);
+        if (size != null) {
+            if (size.length == 2) {
+                String value = String.format("%dx%d", size[0], size[1]);
+                appendArgument(result, "--size", value);
+            } else {
+                throw new MojoExecutionException(String.format("Size should contain two values but it contains %d", size.length));
+            }
         }
         if (repeat > 1) {
             appendArgument(result, "--repeat", Integer.toString(repeat));

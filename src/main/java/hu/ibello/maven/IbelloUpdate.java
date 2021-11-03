@@ -7,7 +7,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.util.List;
 
-@Mojo(name = "ibelloUpdate")
+@Mojo(name = "update")
 public class IbelloUpdate extends IbelloMojo{
 
     @Parameter(property = "browser")
@@ -22,7 +22,7 @@ public class IbelloUpdate extends IbelloMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         appendArgument(result, "--browser", browser);
         if (remove) {

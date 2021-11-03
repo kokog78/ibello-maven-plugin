@@ -8,7 +8,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.util.List;
 
-@Mojo(name = "ibelloCucumber")
+@Mojo(name = "cucumber")
 public class IbelloCucumber extends IbelloTestMojo{
 
     @Parameter(property = "featuresDir")
@@ -23,7 +23,7 @@ public class IbelloCucumber extends IbelloTestMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         appendArgument(result, "--java", java);
         if (featuresDir != null) {

@@ -7,7 +7,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.util.List;
 
-@Mojo(name = "ibelloClean")
+@Mojo(name = "clean")
 public class IbelloClean extends IbelloMojo{
 
     @Parameter(property = "keep", defaultValue = "-1")
@@ -19,7 +19,7 @@ public class IbelloClean extends IbelloMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         if (keep >= 0) {
             appendArgument(result, "--keep", Integer.toString(keep));

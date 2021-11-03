@@ -6,7 +6,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 import java.util.List;
 
-@Mojo(name = "ibelloStop")
+@Mojo(name = "stop")
 public class IbelloStop extends IbelloMojo{
 
     @Override
@@ -15,7 +15,7 @@ public class IbelloStop extends IbelloMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         appendArgument(result, "--pid", getPidFile());
         return result;

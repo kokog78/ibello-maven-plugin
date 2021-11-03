@@ -1,18 +1,18 @@
 package hu.ibello.maven;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executors;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executors;
 
 @Mojo(name = "ibello")
 public abstract class IbelloMojo extends AbstractMojo {
@@ -66,7 +66,7 @@ public abstract class IbelloMojo extends AbstractMojo {
 		}
 	}
 	
-	protected List<String> getCalculatedCommand(String command) {
+	protected List<String> getCalculatedCommand(String command) throws MojoExecutionException {
 		List<String> result = new ArrayList<>();
 		// script file
 		if (installDir != null) {

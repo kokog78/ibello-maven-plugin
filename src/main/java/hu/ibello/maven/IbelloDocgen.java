@@ -8,7 +8,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.util.List;
 
-@Mojo(name = "ibelloDocgen")
+@Mojo(name = "docgen")
 public class IbelloDocgen extends IbelloMojo{
 
     @Parameter(property = "inputFile")
@@ -26,7 +26,7 @@ public class IbelloDocgen extends IbelloMojo{
     }
 
     @Override
-    protected List<String> getCalculatedCommand(String command) {
+    protected List<String> getCalculatedCommand(String command) throws MojoExecutionException{
         List<String> result = super.getCalculatedCommand(command);
         if (inputFile != null) {
             appendArgument(result, "--input", inputFile.getAbsolutePath());
