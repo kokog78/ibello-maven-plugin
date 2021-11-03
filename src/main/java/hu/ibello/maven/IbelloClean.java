@@ -7,11 +7,11 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.util.List;
 
-@Mojo(name = "clean")
+@Mojo(name = "ibelloClean")
 public class IbelloClean extends IbelloMojo{
 
-    @Parameter( property = "keep", defaultValue = "-1" )
-    int keep;
+    @Parameter(property = "keep", defaultValue = "-1")
+    private int keep;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

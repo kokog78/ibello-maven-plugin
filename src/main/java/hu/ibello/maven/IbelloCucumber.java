@@ -8,13 +8,13 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.util.List;
 
-@Mojo(name = "cucumber")
+@Mojo(name = "ibelloCucumber")
 public class IbelloCucumber extends IbelloTestMojo{
 
-    @Parameter( property = "featuresDir")
+    @Parameter(property = "featuresDir")
     File featuresDir;
 
-    @Parameter( property = "java")
+    @Parameter(property = "java")
     String java;
 
     @Override

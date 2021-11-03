@@ -4,7 +4,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
-@Mojo( name = "version")
+@Mojo( name = "ibelloVersion")
 public class IbelloVersion extends IbelloMojo{
 
     @Override
