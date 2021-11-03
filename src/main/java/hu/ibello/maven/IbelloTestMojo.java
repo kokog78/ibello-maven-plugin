@@ -17,6 +17,7 @@ public abstract class IbelloTestMojo extends IbelloMojo{
     private String browser;
 
     @Parameter(property = "size")
+    // KÉRDÉS: csak akkor működjön ha mind a két értéket (width, height) megadtuk?
     private Integer[] size;
 
     @Parameter(property = "repeat", defaultValue = "0")
@@ -103,7 +104,7 @@ public abstract class IbelloTestMojo extends IbelloMojo{
 //        }
 //        return result;
 //    }
-
+//
 //    private Configuration getResolvedConfiguration(ConfigurationContainer configurations, String name) {
 //        Configuration config = configurations.getByName(name);
 //        if (config != null && config.isCanBeResolved()) {
