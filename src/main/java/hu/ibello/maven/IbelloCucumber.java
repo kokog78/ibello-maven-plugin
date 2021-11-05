@@ -4,11 +4,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 
 import java.io.File;
 import java.util.List;
 
-@Mojo(name = "cucumber")
+@Mojo(name = "cucumber", requiresDependencyResolution = ResolutionScope.COMPILE )
 public class IbelloCucumber extends IbelloTestMojo{
 
     @Parameter(property = "featuresDir")

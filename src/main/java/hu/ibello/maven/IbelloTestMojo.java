@@ -3,17 +3,8 @@ package hu.ibello.maven;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.repository.RemoteRepository;
-import org.eclipse.aether.resolution.ArtifactRequest;
-import org.eclipse.aether.resolution.ArtifactResolutionException;
-import org.eclipse.aether.resolution.ArtifactResult;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -22,15 +13,6 @@ public abstract class IbelloTestMojo extends IbelloMojo{
 
     @Parameter(defaultValue = "${localRepository}", readonly = true, required = true)
     private ArtifactRepository local;
-
-    @Component
-    private RepositorySystem repoSystem;
-
-    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
-    private RepositorySystemSession repoSession;
-
-    @Parameter(defaultValue = "${project.remoteProjectRepositories}", readonly = true, required = true)
-    private List<RemoteRepository> repositories;
 
     @Parameter(property = "tags")
     private String[] tags;
@@ -71,68 +53,32 @@ public abstract class IbelloTestMojo extends IbelloMojo{
             appendArgument(result, "--repeat", Integer.toString(repeat));
         }
         appendArgument(result, "--pid", getPidFile());
-        getDependencyFiles();
         for (String file : getDependencyFiles()) {
             appendArgument(result, "--classpath", file);
         }
         return result;
     }
 
-    private List<String> getDependencyFiles() throws MojoExecutionException {
+    private List<String> getDependencyFiles() {
         List<String> result = new ArrayList<>();
         result.add(project.getBuild().getSourceDirectory());
-        Set<Artifact> artifacts = project.getDependencyArtifacts();
-        for (Artifact unresolvedArtifact : artifacts) {
-            String artifactId = unresolvedArtifact.getArtifactId();
-            File file = getResolvedArtifact(unresolvedArtifact);
-            if( file == null || ! file.exists()) {
-                getLog().warn("Artifact " + artifactId + " has no attached file. Its content will not be copied in the target model directory.");
-                continue;
+        Set<Artifact> artifacts2 = project.getArtifacts();
+        getLog().info("ARTIFACT size: " + artifacts2.size());
+        for (Artifact art : artifacts2) {
+            if (isAddable(art.getScope())) {
+                result.add(art.getFile().getAbsolutePath());
             }
-            if (isAddable(unresolvedArtifact.getScope())) {
-                result.add(file.getAbsolutePath());
-            }
+            getLog().info("ARTIFACT: " + art.getFile().getAbsolutePath());
         }
         return result;
     }
 
-    private File getResolvedArtifact (Artifact unresolvedArtifact) throws MojoExecutionException {
-        String artifactId = unresolvedArtifact.getArtifactId();
-        org.eclipse.aether.artifact.Artifact aetherArtifact = new DefaultArtifact(
-                unresolvedArtifact.getGroupId(),
-                unresolvedArtifact.getArtifactId(),
-                unresolvedArtifact.getClassifier(),
-                unresolvedArtifact.getType(),
-                unresolvedArtifact.getVersion());
-
-        ArtifactRequest req = new ArtifactRequest().setRepositories(repositories).setArtifact(aetherArtifact);
-        ArtifactResult resolutionResult;
-        try {
-            resolutionResult = repoSystem.resolveArtifact(repoSession, req);
-        } catch(ArtifactResolutionException e) {
-            throw new MojoExecutionException("Artifact " + artifactId + " could not be resolved", e);
-        }
-        return resolutionResult.getArtifact().getFile();
-    }
 
     private boolean isAddable(String scope) {
-        // TODO melyik scopnál kell?
         if (scope.equals("compile")) {
             return true;
         }
-        if (scope.equals("provided")) {
-            return true;
-        }
         if (scope.equals("runtime")) {
-            return true;
-        }
-        if (scope.equals("test")) {
-            return false;
-        }
-        if (scope.equals("system")) {
-            return true;
-        }
-        if (scope.equals("import")) {
             return true;
         }
         return false;
