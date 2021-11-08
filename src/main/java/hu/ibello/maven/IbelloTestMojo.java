@@ -63,12 +63,14 @@ public abstract class IbelloTestMojo extends IbelloMojo{
         List<String> result = new ArrayList<>();
         result.add(project.getBuild().getSourceDirectory());
         Set<?> artifacts = project.getArtifacts();
-        for (Object artifact : artifacts) {
-            if (artifact instanceof Artifact) {
-                Artifact art = (Artifact)artifact;
-                if (isAddable(art.getScope())) {
-                    result.add(art.getFile().getAbsolutePath());
+        for (Object obj : artifacts) {
+            if (obj instanceof Artifact) {
+                Artifact artifact = (Artifact)obj;
+                if (isAddable(artifact.getScope())) {
+                    result.add(artifact.getFile().getAbsolutePath());
                 }
+            } else {
+                getLog().warn(String.format("Object is not Artifact, it is not added to the classpath: %s", obj.getClass().getCanonicalName()));
             }
         }
         return result;
