@@ -62,17 +62,14 @@ public abstract class IbelloTestMojo extends IbelloMojo{
     private List<String> getDependencyFiles() {
         List<String> result = new ArrayList<>();
         result.add(project.getBuild().getSourceDirectory());
-        Set<Artifact> artifacts2 = project.getArtifacts();
-        getLog().info("ARTIFACT size: " + artifacts2.size());
-        for (Artifact art : artifacts2) {
-            if (isAddable(art.getScope())) {
-                result.add(art.getFile().getAbsolutePath());
+        Set<Artifact> artifacts = project.getArtifacts();
+        for (Artifact artifact : artifacts) {
+            if (isAddable(artifact.getScope())) {
+                result.add(artifact.getFile().getAbsolutePath());
             }
-            getLog().info("ARTIFACT: " + art.getFile().getAbsolutePath());
         }
         return result;
     }
-
 
     private boolean isAddable(String scope) {
         if (scope.equals("compile")) {
