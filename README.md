@@ -68,17 +68,17 @@ This goal removes old test results, only the latest 20 will be available.
     <groupId>hu.ibello</groupId>
 	<artifactId>ibello-maven-plugin</artifactId>
 	<version>1.0</version>
-    <executions>
-        <execution>
-            <id>my-clean</id>
-            <goals>
-                <goal>clean</goal>
-            </goals>
-            <configuration>
-                <keep>20</keep>
-            </configuration>
-        </execution>
-    </executions>
+	<executions>
+		<execution>
+			<id>my-clean</id>
+			<goals>
+				<goal>clean</goal>
+			</goals>
+			<configuration>
+				<keep>20</keep>
+			</configuration>
+		</execution>
+	</executions>
 </plugin>
 ```
 
