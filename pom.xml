@@ -10,6 +10,15 @@
 		<name>Ark-Sys Kft.</name>
 	</organization>
 	<inceptionYear>2021</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/kokog78/ibello-maven-plugin.git</url>
+	</scm>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -20,10 +29,25 @@
 	<developers>
 		<developer>
 			<name>Kornél Simon</name>
-			<email>kornel.simon@ibello.hu</email>
+			<email>kornel.simon@ibello.eu</email>
+			<organization>Ark-Sys</organization>
+		</developer>
+		<developer>
+			<name>Zoltán Kasza</name>
+			<email>zoltan.kasza@ibello.eu</email>
 			<organization>Ark-Sys</organization>
 		</developer>
 	</developers>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
