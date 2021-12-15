@@ -10,18 +10,6 @@ https://ibello.eu
 
 Plugin version: 1.0. The ibello version should greater than or equal to 1.13.0. 
 
-## Configuration
-
-In the `pom.xml` file, you need to add these lines:
-
-```xml
-<dependency>
-	<groupId>hu.ibello</groupId>
-	<artifactId>ibello-maven-plugin</artifactId>
-	<version>1.0</version>
-</dependency>
-```
-
 ## General parameters
 
 You have a top-level configuration block for general parameters:
@@ -31,11 +19,11 @@ You have a top-level configuration block for general parameters:
 	<groupId>hu.ibello</groupId>
 	<artifactId>ibello-maven-plugin</artifactId>
 	<version>1.0</version>
-		<configuration>
-            <installDir>/path/to/my/ibello/installation</installDir>
-            <language>hu</language>
-            <directory>/path/to/my/project</directory>
-    </configuration>
+	<configuration>
+		<installDir>/path/to/my/ibello/installation</installDir>
+		<language>hu</language>
+		<directory>/path/to/my/project</directory>
+	</configuration>
 </plugin>
 ```
 
@@ -98,21 +86,21 @@ This goal generates documentation:
 
 ```xml
 <plugin>
-    <groupId>hu.ibello</groupId>
+	<groupId>hu.ibello</groupId>
 	<artifactId>ibello-maven-plugin</artifactId>
 	<version>1.0</version>
-    <executions>
-        <execution>
-            <id>my-docgen</id>
-            <goals>
-                <goal>docgen</goal>
-            </goals>
-            <configuration>
-                <inputFile>ibello/docs/project.json</inputFile>
-                <overwrite>true</overwrite>
-            </configuration>
-        </execution>
-    </executions>
+	<executions>
+		<execution>
+			<id>my-docgen</id>
+			<goals>
+				<goal>docgen</goal>
+			</goals>
+			<configuration>
+				<inputFile>ibello/docs/project.json</inputFile>
+				<overwrite>true</overwrite>
+			</configuration>
+		</execution>
+	</executions>
 </plugin>
 ```
 
@@ -143,24 +131,24 @@ Example:
 	<groupId>hu.ibello</groupId>
 	<artifactId>ibello-maven-plugin</artifactId>
 	<version>1.0</version>
-    <executions>
+	<executions>
     	<execution>
         	<id>mySmokeTest</id>
         	<goals>
         		<goal>run</goal>
         	</goals>
-            <configuration>
-            	<headless>true</headless>
-                <browser>CHROME</browser>
-                <tags>
-                    <param>one</param>
-                    <param>two</param>
-                    <param>three</param>
-                </tags>
-                <java>*Smoke*</java>
-            </configuration>
-        </execution>
-    </executions>
+			<configuration>
+				<headless>true</headless>
+				<browser>CHROME</browser>
+				<tags>
+					<param>one</param>
+					<param>two</param>
+					<param>three</param>
+				</tags>
+				<java>*Smoke*</java>
+			</configuration>
+		</execution>
+	</executions>
 </plugin>
 ```
 
@@ -183,7 +171,7 @@ This is the reason why the `ibello-api` dependency - which is provided by the ib
 	<groupId>hu.ibello</groupId>
 	<artifactId>ibello-api</artifactId>
 	<version>1.13.0</version>
-    <scope>provided</scope>
+	<scope>provided</scope>
 </dependency>
 ```
 
