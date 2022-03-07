@@ -5,11 +5,22 @@
 	<artifactId>ibello-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<version>1.0</version>
+	<name>Ibello maven plugin</name>
+	<description>Ibello is an easy-to-use automated test framework for web applications. With this plugin it is possible to run different tasks with maven.</description>
 	<url>https://ibello.eu</url>
+	<inceptionYear>2021</inceptionYear>
 	<organization>
 		<name>Ark-Sys Kft.</name>
 	</organization>
-	<inceptionYear>2021</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/kokog78/ibello-maven-plugin.git</url>
+	</scm>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -20,10 +31,25 @@
 	<developers>
 		<developer>
 			<name>Kornél Simon</name>
-			<email>kornel.simon@ibello.hu</email>
+			<email>kornel.simon@ibello.eu</email>
+			<organization>Ark-Sys</organization>
+		</developer>
+		<developer>
+			<name>Zoltán Kasza</name>
+			<email>zoltan.kasza@ibello.eu</email>
 			<organization>Ark-Sys</organization>
 		</developer>
 	</developers>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -75,6 +101,19 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>
@@ -85,6 +124,84 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<show>public</show>
+					<nohelp>true</nohelp>
+					<bottom><![CDATA[Created by ibello.eu, {currentYear}]]></bottom>
+					<charset>UTF-8</charset>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-javadoc</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>javadoc-coverage</id>
+						<phase>package</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+						<configuration>
+							<doclet>com.manoelcampos.javadoc.coverage.CoverageDoclet</doclet>
+							<docletArtifact>
+								<groupId>com.manoelcampos</groupId>
+								<artifactId>javadoc-coverage</artifactId>
+								<version>1.1.0</version>
+							</docletArtifact>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.manoelcampos</groupId>
+				<artifactId>javadoc-coverage</artifactId>
+				<version>1.1.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+	        <id>no-sign</id>
+	        <build>
+	            <plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>none</phase>
+							</execution>
+						</executions>
+					</plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+	</profiles>
 </project>
